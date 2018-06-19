@@ -41,7 +41,7 @@ instance ToJSON a => ByteStringRepr (Block a) where
   reprBS block =
     case block of
       Genesis ts -> reprBS ts
-      Block ts bd -> mconcat [ reprBS ts, reprBS bd ]
+      Block ts bd -> reprBS ts <> reprBS bd
 
 data BlockData a = BlockData
   { blockValue :: a
@@ -52,8 +52,7 @@ blockValueJSON :: ToJSON a => BlockData a -> BS.ByteString
 blockValueJSON = BSL.toStrict . encode . blockValue
 
 instance ToJSON a => ByteStringRepr (BlockData a) where
-  reprBS bd =
-    mconcat [ blockValueJSON bd, blockPrevHash bd ]
+  reprBS bd = blockValueJSON bd <> blockPrevHash bd
 
 calculateHash :: ToJSON a => Block a -> BS.ByteString
 calculateHash = BA.convertToBase Base16 . hashWith SHA256 . reprBS
