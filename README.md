@@ -1,1 +1,3 @@
-# simple-chain
+# Simple Chain
+
+A trivial blockchain implemented in Haskell
