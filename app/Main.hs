@@ -1,6 +1,12 @@
 module Main where
 
-import Lib
+import SimpleChain
 
 main :: IO ()
-main = someFunc
+main = chain >>= printChain
+
+chain :: IO (Blockchain Int)
+chain =
+  createChain
+  >>= writeChain 7
+  >>= writeChain 12

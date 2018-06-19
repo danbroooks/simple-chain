@@ -24,6 +24,15 @@ dependencies:
 
 library:
   source-dirs: src
+  dependencies:
+    - aeson
+    - bytestring
+    - cryptonite
+    - memory
+    - text
+    - time
+  default-extensions:
+    - OverloadedStrings
 
 executables:
   simple-chain-exe:
